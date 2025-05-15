@@ -5,7 +5,7 @@ import type {
     passwordInitialValues,
 } from './formik';
 import type {
-    ChangeEvent,
+    // ChangeEvent,
     Dispatch,
     ReactElement,
     SetStateAction,
@@ -37,10 +37,13 @@ export type PrivateRouteProps = {
 
 export type HomePageProps = {
     session: Session | null;
+    setSession: Dispatch<SetStateAction<Session | null>>;
 };
 
 export type UserStatisticsProps = {
     user: User;
+    session: Session | null;
+    handleLogoutClick: () => void;
 };
 
 export type SendPassResEmailFormProps = {
@@ -49,13 +52,4 @@ export type SendPassResEmailFormProps = {
 
 export type ChangePasswordFormProps = {
     handleSubmit: (values: passwordInitialValues) => void;
-    isPasswordMatch: boolean;
-    handlePassChange: (
-        evt: ChangeEvent<HTMLInputElement>,
-        type: 'pass' | 'repeat'
-    ) => void;
-    passwords: {
-        password: string;
-        repeatPassword: string;
-    };
 };

@@ -1,9 +1,14 @@
+import { Button } from '@mui/material';
 import type { UserStatisticsProps } from '../types/props';
 import normalizeStringDate from '../utils/normalizeStringDate';
 
-export default function UserStatistics({ user }: UserStatisticsProps) {
+export default function UserStatistics({
+    user,
+    session,
+    handleLogoutClick,
+}: UserStatisticsProps) {
     return (
-        <div className="overlay">
+        <div className="overlay w-[450px]">
             <h1>User</h1>
             <ul className="flex flex-col gap-4">
                 <li>
@@ -23,6 +28,15 @@ export default function UserStatistics({ user }: UserStatisticsProps) {
                     </p>
                 </li>
             </ul>
+            {session && (
+                <Button
+                    className="w-full"
+                    variant="outlined"
+                    onClick={handleLogoutClick}
+                >
+                    Logout
+                </Button>
+            )}
         </div>
     );
 }

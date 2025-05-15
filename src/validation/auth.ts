@@ -22,20 +22,15 @@ export const emailInObjValidationSchema = z.object({
     email: emailValidationSchema,
 });
 
-export const passwordResetValidationSchema = z.object({
-    password: passwordValidationSchema,
-    repeatPassword: passwordValidationSchema,
-});
-
-// export const passwordResetValidationSchema = z.object({
-//     password: passwordValidationSchema,
-//     repeatPassword: z
-//         .string()
-//         .min(6, 'Password must have at least 6 letters')
-//         .refine((value, { password }) => value === password, {
-//             message: 'Passwords must match',
-//         }),
-// });
+export const passwordResetValidationSchema = z
+    .object({
+        password: passwordValidationSchema,
+        repeatPassword: passwordValidationSchema,
+    })
+    .refine(data => data.password === data.repeatPassword, {
+        path: ['repeatPassword'],
+        message: 'Passwords do not match',
+    });
 
 export const authValidationSchema = z.object({
     email: emailValidationSchema,

@@ -1,15 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import type { AppBarProps } from '../types/props';
-import { supabase } from '../App';
-import { Button } from '@mui/material';
 
-export default function AppBar({ session, setSession }: AppBarProps) {
-    async function handleLogoutClick() {
-        console.log('logout');
-        await supabase.auth.signOut();
-        setSession(null);
-    }
-
+export default function AppBar() {
     return (
         <>
             <header className="flex h-20 w-full relative justify-end p-6 ">
@@ -19,11 +10,6 @@ export default function AppBar({ session, setSession }: AppBarProps) {
                 >
                     <h1 className="text-4xl font-bold">Logo</h1>
                 </a>
-                {session && (
-                    <Button variant="outlined" onClick={handleLogoutClick}>
-                        Logout
-                    </Button>
-                )}
             </header>
             <main>
                 <Outlet />

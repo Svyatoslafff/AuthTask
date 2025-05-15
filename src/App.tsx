@@ -20,6 +20,9 @@ export const supabase = createClient(
 );
 
 function App() {
+    const navigate = useNavigate();
+    const location = useLocation();
+
     useEffect(() => {
         if (location.pathname === '/') navigate('/dashboard');
     }, []);
@@ -39,20 +42,17 @@ function App() {
         return () => subscription.unsubscribe();
     }, []);
 
-    const location = useLocation();
-    const navigate = useNavigate();
-
     return (
         <Routes>
-            <Route
-                path="/"
-                element={<AppBar session={session} setSession={setSession} />}
-            >
+            <Route path="/" element={<AppBar />}>
                 <Route
                     path="dashboard"
                     element={
                         <PrivateRoute session={session} redirectTo="/login">
-                            <HomePage />
+                            <HomePage
+                                session={session}
+                                setSession={setSession}
+                            />
                         </PrivateRoute>
                     }
                 />
@@ -83,9 +83,10 @@ function App() {
                 <Route
                     path="change-password"
                     element={
+                        // add restricted route
                         // <PrivateRoute session={session} redirectTo="/dashboard">
                         <ChangePasswordPage />
-                        //</PrivateRoute>
+                        // </PrivateRoute>
                     }
                 />
                 <Route path="*" element={<NotFoundPage />} />

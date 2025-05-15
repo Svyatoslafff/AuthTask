@@ -3,7 +3,6 @@ import type { ChangePasswordFormProps } from '../types/props';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { passwordResetValidationSchema } from '../validation/auth';
 import { Button } from '@mui/material';
-import type { ChangeEvent } from 'react';
 
 const initialValues = {
     password: '',
@@ -12,9 +11,6 @@ const initialValues = {
 
 export default function ChangePasswordForm({
     handleSubmit,
-    isPasswordMatch,
-    handlePassChange,
-    passwords,
 }: ChangePasswordFormProps) {
     return (
         <div className="overlay">
@@ -30,14 +26,7 @@ export default function ChangePasswordForm({
                 <Form className="flex flex-col gap-10 w-full">
                     <label className=" relative flex flex-col gap-2">
                         <h3 className="pl-[20px]">New password</h3>
-                        <Field
-                            type="password"
-                            name="password"
-                            onChange={(evt: ChangeEvent<HTMLInputElement>) =>
-                                handlePassChange(evt, 'pass')
-                            }
-                            value={passwords.password}
-                        />
+                        <Field type="password" name="password" />
                         <ErrorMessage name="password">
                             {msg => (
                                 <div className=" absolute -bottom-2 left-[20px] translate-y-full">
@@ -48,14 +37,7 @@ export default function ChangePasswordForm({
                     </label>
                     <label className=" relative flex flex-col gap-2">
                         <h3 className="pl-[20px]">Repeat password</h3>
-                        <Field
-                            type="password"
-                            name="repeatPassword"
-                            onChange={(evt: ChangeEvent<HTMLInputElement>) =>
-                                handlePassChange(evt, 'repeat')
-                            }
-                            value={passwords.repeatPassword}
-                        />
+                        <Field type="password" name="repeatPassword" />
                         <ErrorMessage name="repeatPassword">
                             {msg => (
                                 <div className=" absolute -bottom-2 left-[20px] translate-y-full">
@@ -67,7 +49,7 @@ export default function ChangePasswordForm({
                     <Button
                         variant="contained"
                         type="submit"
-                        disabled={!isPasswordMatch}
+                        // disabled={ }
                     >
                         Change
                     </Button>
