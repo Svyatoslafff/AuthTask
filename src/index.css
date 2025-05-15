@@ -1,0 +1,25 @@
+@import 'modern-normalize';
+@import 'tailwindcss';
+
+@layer base {
+    body {
+        @apply w-[100vw];
+    }
+    input[type='text'],
+    input[type='email'],
+    input[type='password'] {
+        @apply rounded-[8px] h-10 w-full p-2 pl-[20px]  border-[1px];
+    }
+    h1 {
+        @apply text-3xl;
+    }
+}
+
+@layer components {
+    .overlay-container {
+        @apply flex flex-col justify-center items-center w-full p-6;
+    }
+    .overlay {
+        @apply flex flex-col items-center shadow-2xl rounded-2xl p-8 pb-12  w-[550px] gap-8;
+    }
+}
