@@ -4,13 +4,10 @@ import type {
     emailInitialValues,
     passwordInitialValues,
 } from './formik';
-import type {
-    // ChangeEvent,
-    Dispatch,
-    ReactElement,
-    SetStateAction,
-} from 'react';
+import type { Dispatch, FormEvent, ReactElement, SetStateAction } from 'react';
 import type { Session, User } from '@supabase/supabase-js';
+import type { Columns, ImageData } from './states';
+import type { DragEndEvent } from '@dnd-kit/core';
 
 export type AuthComponentProps = {
     handleSubmit: (
@@ -52,4 +49,50 @@ export type SendPassResEmailFormProps = {
 
 export type ChangePasswordFormProps = {
     handleSubmit: (values: passwordInitialValues) => void;
+};
+
+export type PhotosPageProps = {
+    session: Session | null;
+};
+
+export type PhotoUploadingModalProps = {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    handleSubmit: (evt: FormEvent<HTMLDivElement>) => void;
+    photos: File[] | undefined;
+    setPhotos: Dispatch<SetStateAction<File[] | undefined>>;
+};
+
+export type ImagesListProps = {
+    urlsList: ImageData[];
+    isLoading: boolean;
+};
+
+export type ToDo = {
+    id: string;
+    userId: string;
+    created_at: string;
+    name: string;
+    description: string;
+    status: 'todo' | 'inProgress' | 'done';
+    position: number;
+};
+
+export type TasksListProps = {
+    handleDragEnd: (evt: DragEndEvent) => void;
+    columns: Columns;
+};
+
+export type SortableItemProps = {
+    task: ToDo;
+};
+
+type newToDo = { name: string; description: string; status: string };
+
+export type CreateToDoModalProps = {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    handleSubmit: (evt: FormEvent<HTMLDivElement>) => void;
+    newToDo: newToDo;
+    setNewToDo: Dispatch<SetStateAction<newToDo>>;
 };

@@ -20,12 +20,16 @@ export default function HomePage({ session, setSession }: HomePageProps) {
 
     useEffect(() => {
         async function getUserInfo() {
-            const { data, error } = await supabase.auth.getUser();
+            try {
+                const { data, error } = await supabase.auth.getUser();
 
-            if (error) {
-                toast.error(error.message);
-            } else {
-                setUser(data.user);
+                if (error) {
+                    throw error;
+                } else {
+                    setUser(data.user);
+                }
+            } catch (err) {
+                toast.error((err as Error).message);
             }
         }
         getUserInfo();

@@ -22,4 +22,10 @@
     .overlay {
         @apply flex flex-col items-center shadow-2xl rounded-2xl p-8 pb-12  w-[550px] gap-8;
     }
+    .activeLink {
+        @apply text-blue-500;
+    }
+    /* .inActiveLink {
+        @apply;
+    } */
 }

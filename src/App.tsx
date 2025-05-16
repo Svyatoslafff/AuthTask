@@ -13,6 +13,8 @@ import { createClient, type Session } from '@supabase/supabase-js';
 import AuthRoute from './routes/AuthRoute';
 import SendResetPasswordPage from './pages/SendResetPasswordPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
+import PhotosPage from './pages/PhotosPage';
+import TasksPage from './pages/TasksPage';
 
 export const supabase = createClient(
     'https://pupaucyyifxxorgpfxvq.supabase.co',
@@ -23,6 +25,9 @@ function App() {
     const navigate = useNavigate();
     const location = useLocation();
 
+    // const [redirectTo, setRedirectTo] = useState('/dashboard');
+    // setRedirectTo(location.pathname);
+
     useEffect(() => {
         if (location.pathname === '/') navigate('/dashboard');
     }, []);
@@ -30,13 +35,11 @@ function App() {
     const [session, setSession] = useState<Session | null>(null);
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session: newSession } }) => {
-            console.log(newSession);
             setSession(newSession);
         });
         const {
             data: { subscription },
         } = supabase.auth.onAuthStateChange((_event, newSession) => {
-            console.log(newSession);
             setSession(newSession);
         });
         return () => subscription.unsubscribe();
@@ -53,6 +56,22 @@ function App() {
                                 session={session}
                                 setSession={setSession}
                             />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="photos"
+                    element={
+                        <PrivateRoute session={session} redirectTo="/login">
+                            <PhotosPage />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="tasks"
+                    element={
+                        <PrivateRoute session={session} redirectTo="/login">
+                            <TasksPage />
                         </PrivateRoute>
                     }
                 />
